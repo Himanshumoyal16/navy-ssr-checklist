@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Navy SSR 5-Day Crash Checklist</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom, #e6f0ff, #ffffff);
+      margin: 0;
+      padding: 20px;
+    }
+    .logo {
+      display: block;
+      margin: 0 auto 20px;
+      width: 100px;
+    }
+    h1 {
+      text-align: center;
+      color: #003366;
+    }
+    .day {
+      background: #ffffff;
+      border-left: 8px solid #003366;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    h2 {
+      color: #003366;
+    }
+    label {
+      display: block;
+      margin: 8px 0;
+      font-size: 16px;
+    }
+    input[type="checkbox"] {
+      margin-right: 10px;
+      transform: scale(1.2);
+    }
+    .controls {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .btn {
+      background: linear-gradient(to right, #003366, #0055a5);
+      color: white;
+      border: none;
+      border-radius: 30px;
+      padding: 12px 30px;
+      font-size: 16px;
+      cursor: pointer;
+      margin: 10px;
+      transition: background 0.3s;
+    }
+    .btn:hover {
+      background: linear-gradient(to right, #002244, #004080);
+    }
+  </style>
+</head>
+<body>
+  <img src="https://upload.wikimedia.org/wikipedia/en/thumb/2/2e/Indian_Navy_crest.svg/1920px-Indian_Navy_crest.svg.png" alt="Indian Navy Logo" class="logo">
+  <h1>Navy SSR 5-Day Crash Checklist</h1>
+  <div class="controls">
+    <button class="btn" onclick="saveProgress()">Save Progress</button>
+    <button class="btn" onclick="resetChecklist()">Reset Checklist</button>
+  </div>
+  <form id="checklistForm">
+    <div class="day">
+      <h2>Day 1: English + General Awareness (20 May)</h2>
+      <label><input type="checkbox"> English Grammar: Tenses, Prepositions, Articles</label>
+      <label><input type="checkbox"> Synonyms/Antonyms, Spot the Error</label>
+      <label><input type="checkbox"> Comprehension Practice</label>
+      <label><input type="checkbox"> Current Affairs (last 6 months)</label>
+      <label><input type="checkbox"> Static GK: Geography, History, Navy facts</label>
+      <label><input type="checkbox"> Revision + MCQ Practice</label>
+    </div>
+    <div class="day">
+      <h2>Day 2: Science (21 May)</h2>
+      <label><input type="checkbox"> Physics: Motion, Laws, Work & Energy</label>
+      <label><input type="checkbox"> Physics: Electricity, Heat</label>
+      <label><input type="checkbox"> Chemistry: Periodic Table, Acid/Base, Atomic Structure</label>
+      <label><input type="checkbox"> Biology: Cells, Respiration, Human Body</label>
+      <label><input type="checkbox"> Revise + Practice Questions</label>
+    </div>
+    <div class="day">
+      <h2>Day 3: Mathematics - Part 1 (22 May)</h2>
+      <label><input type="checkbox"> Algebra: Linear Equations, Identities</label>
+      <label><input type="checkbox"> Number System, HCF/LCM, Simplification</label>
+      <label><input type="checkbox"> Time & Work, Speed & Distance</label>
+      <label><input type="checkbox"> Percentage, Ratio-Proportion</label>
+      <label><input type="checkbox"> Previous Year Math Questions</label>
+    </div>
+    <div class="day">
+      <h2>Day 4: Math - Part 2 + Science Revision (23 May)</h2>
+      <label><input type="checkbox"> Trigonometry: Basic Identities, Angles</label>
+      <label><input type="checkbox"> Geometry: Area, Volume, Angles</label>
+      <label><input type="checkbox"> Coordinate Geometry, Probability</label>
+      <label><input type="checkbox"> Science Quick Revision Notes</label>
+      <label><input type="checkbox"> Section-wise Practice Sets</label>
+    </div>
+    <div class="day">
+      <h2>Day 5: Full-Length Mock Tests + Final Revision (24 May)</h2>
+      <label><input type="checkbox"> Revise Key Formulas & Notes</label>
+      <label><input type="checkbox"> Mock Test 1 (Full syllabus)</label>
+      <label><input type="checkbox"> Analyze Mistakes (Mock 1)</label>
+      <label><input type="checkbox"> Mock Test 2</label>
+      <label><input type="checkbox"> Analyze + Last-Minute Revision</label>
+      <label><input type="checkbox"> GK Capsule + Vocab Flashcards</label>
+    </div>
+  </form>
+  <script>
+    function loadProgress() {
+      const form = document.getElementById("checklistForm");
+      const saved = JSON.parse(localStorage.getItem("navySSRChecklist") || "{}");
+      [...form.elements].forEach((input, index) => {
+        if (input.type === "checkbox") {
+          input.checked = saved[index] || false;
+        }
+      });
+    }
+    function saveProgress() {
+      const form = document.getElementById("checklistForm");
+      const data = {};
+      [...form.elements].forEach((input, index) => {
+        if (input.type === "checkbox") {
+          data[index] = input.checked;
+        }
+      });
+      localStorage.setItem("navySSRChecklist", JSON.stringify(data));
+      alert("Progress saved successfully!");
+    }
+    function resetChecklist() {
+      if (confirm("Are you sure you want to reset all progress?")) {
+        const form = document.getElementById("checklistForm");
+        [...form.elements].forEach(input => {
+          if (input.type === "checkbox") input.checked = false;
+        });
+        localStorage.removeItem("navySSRChecklist");
+      }
+    }
+    window.onload = loadProgress;
+  </script>
+</body>
+</html>
